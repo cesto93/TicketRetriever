@@ -1,12 +1,16 @@
 package utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import model.TicketByMonth;
 
 public class Reducer {
 	
-	public static void reduce(ArrayList<TicketByMonth> tbm) {
+	private Reducer() {
+	    throw new IllegalStateException("Utility class");
+	}
+	
+	public static void reduce(List<TicketByMonth> tbm) {
 		for (int i = 0; i < tbm.size(); i++) 
 			for (int j = i; j < tbm.size(); j++) 
 				if (TicketByMonth.sameDate(tbm.get(i), tbm.get(j))) {
