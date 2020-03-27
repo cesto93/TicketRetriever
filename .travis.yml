@@ -1,0 +1,10 @@
+language: java
+jdk:
+- openjdk8
+addons:
+  sonarcloud:
+    organization: "cesto93"
+    token: c772581fc3b50a02ad6a3d3ea33f4067ca3742a6
+script:
+- ant build
+- sonar-scanner
