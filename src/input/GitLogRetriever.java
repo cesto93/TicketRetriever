@@ -5,17 +5,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GitLogRetriever {
-	Runtime rt;
-	public GitLogRetriever() {
-		rt = Runtime.getRuntime();
-	}
+	private static Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
 	
-	public String[] getDates(String[] keys) {
-		ProcessBuilder pb[] = new ProcessBuilder[keys.length]; 
-		ArrayList<String> res = new ArrayList<String>();
-		File file = new File("/home/pier/Desktop/uni/isw2/progetto/stdcxx/");
+	
+	public static String[] getDates(String repoPath, String[] keys) {
+		ProcessBuilder[] pb = new ProcessBuilder[keys.length]; 
+		ArrayList<String> res = new ArrayList<>();
+		File file = new File(repoPath);
 		
 		for (int i = 0; i < keys.length; i++) {
 			pb[i] = new ProcessBuilder( "git", "log", "--date=short", "--pretty=format:\"%cd\"",
@@ -35,8 +35,7 @@ public class GitLogRetriever {
 			while ((line = stdError.readLine()) != null) 
 					System.out.println(line);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 		return res.toArray(new String[0]);
