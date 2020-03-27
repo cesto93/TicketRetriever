@@ -6,5 +6,7 @@ addons:
     organization: "cesto93"
     token: c772581fc3b50a02ad6a3d3ea33f4067ca3742a6
 script:
-- ant build
-- sonar-scanner
+#- ant build
+#- sonar-scanner
+ # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
