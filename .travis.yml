@@ -1,4 +1,5 @@
 language: java
+install: true
 jdk:
   - openjdk8
 addons:
@@ -7,7 +8,7 @@ addons:
     token: $SONAR_TOKEN
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report
-  - mvn sonar:sonar
+  - mvn sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
 #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
 #  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar 
 # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
