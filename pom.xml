@@ -4,6 +4,18 @@
   <artifactId>TicketRetriever</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <scm>
+        <connection>scm:git:git@github.com:cesto93/TicketRetriever.git</connection>
+        <developerConnection>scm:git:git@github.com:cesto93/TicketRetriever.git</developerConnection>
+        <url>https://github.com/SonarSource/cesto93/TicketRetriever</url>
+  </scm>
+  
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.apache.commons</groupId>
