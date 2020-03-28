@@ -6,12 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -19,7 +18,7 @@ import org.json.JSONArray;
 
 public class JIRATicketRetriever {
 	
-	private final static Logger LOGGER = Logger.getLogger(JIRATicketRetriever.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(JIRATicketRetriever.class.getName());
 	
 	private JIRATicketRetriever() {
 	    throw new IllegalStateException("Utility class");
@@ -34,10 +33,10 @@ public class JIRATicketRetriever {
 	      return sb.toString();
 	}
 
-	public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
+	public static JSONArray readJsonArrayFromUrl(String url) throws IOException {
 		InputStream is = new URL(url).openStream();
 		try ( 
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 			) {
 			String jsonText = readAll(rd);
 			return  new JSONArray(jsonText);
@@ -46,10 +45,10 @@ public class JIRATicketRetriever {
 		}
 	}
 
-	public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+	public static JSONObject readJsonFromUrl(String url) throws IOException {
 		InputStream is = new URL(url).openStream();
 		try ( 
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 			) {
 			String jsonText = readAll(rd);
 			return new JSONObject(jsonText);

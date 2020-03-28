@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GitLogRetriever {
-	private static Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
 	
 	private GitLogRetriever() {
 	    throw new IllegalStateException("Utility class");

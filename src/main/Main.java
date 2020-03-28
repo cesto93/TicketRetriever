@@ -13,7 +13,7 @@ import output.CSVExporter;
 import utils.Reducer;
 
 public class Main {
-	private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 	
 	public static void main(String[] args) {	
 		String[] keys = JIRATicketRetriever.readTicketKeys("STDCXX");
@@ -24,7 +24,6 @@ public class Main {
 			String s = dates[i].substring(1, dates[i].length() - 1);
 			LocalDate ld = LocalDate.parse(s);
 			tbm.add(new TicketByMonth(ld.getMonthValue(), ld.getYear(), 1));
-			//LOGGER.log(Level.INFO, tbm.get(i).toString());
 		}
 		Collections.sort(tbm);
 		Reducer.reduce(tbm);
