@@ -8,6 +8,6 @@ addons:
 script:
 #- ant build
 #- sonar-scanner
- # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+# the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
 #- mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=cesto93_TicketRetriever
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
