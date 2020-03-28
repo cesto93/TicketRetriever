@@ -5,7 +5,7 @@ addons:
   sonarcloud:
     organization: "cesto93"
     token: 
-      secure: ${SONAR_TOKEN}
+      secure: fb7a0744ad912430933e35611f2f039980da6672
 script:
 #- ant build
 #- sonar-scanner
