@@ -19,11 +19,11 @@ import org.json.JSONArray;
 
 public class JIRATicketRetriever {
 	
-	private static Logger LOGGER = Logger.getLogger(JIRATicketRetriever.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(JIRATicketRetriever.class.getName());
 	
 	private JIRATicketRetriever() {
 	    throw new IllegalStateException("Utility class");
-	  }
+	}
 
 	private static String readAll(Reader rd) throws IOException {
 	      StringBuilder sb = new StringBuilder();

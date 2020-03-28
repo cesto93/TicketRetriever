@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 public class GitLogRetriever {
 	private static Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
 	
+	private GitLogRetriever() {
+	    throw new IllegalStateException("Utility class");
+	}
 	
 	public static String[] getDates(String repoPath, String[] keys) {
 		ProcessBuilder[] pb = new ProcessBuilder[keys.length]; 
@@ -32,8 +35,8 @@ public class GitLogRetriever {
 			while ((line = stdInput.readLine()) != null)
 				res.add(line);
 	
-			while ((line = stdError.readLine()) != null) 
-					System.out.println(line);
+			while ((line = stdError.readLine()) != null)
+					LOGGER.log(Level.WARNING, line);
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			}
