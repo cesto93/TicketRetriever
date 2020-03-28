@@ -8,7 +8,7 @@ addons:
     token: $SONAR_TOKEN
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package org.jacoco:jacoco-maven-plugin:report
-  - mvn sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+  - mvn sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever -Dsonar.organization=cesto93 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 #- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
 #  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar 
 # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
