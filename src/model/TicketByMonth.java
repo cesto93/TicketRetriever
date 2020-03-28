@@ -1,6 +1,6 @@
 package model;
 
-public class TicketByMonth implements Comparable<TicketByMonth> {
+public class TicketByMonth {
 	private int month;
 	private int year;
 	private int numTickets;
@@ -40,7 +40,7 @@ public class TicketByMonth implements Comparable<TicketByMonth> {
 		this.month = month;
 	}
 
-	public int compareTo(TicketByMonth tbm) {
+	public int compareDate(TicketByMonth tbm) {
 		return (this.getYear() - tbm.getYear()) * 12 + (this.getMonth() - tbm.getMonth());
 	}
 	

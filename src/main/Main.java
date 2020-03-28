@@ -3,6 +3,7 @@ package main;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +26,8 @@ public class Main {
 			LocalDate ld = LocalDate.parse(s);
 			tbm.add(new TicketByMonth(ld.getMonthValue(), ld.getYear(), 1));
 		}
-		Collections.sort(tbm);
+		Comparator<TicketByMonth> compareByData = (TicketByMonth t1, TicketByMonth t2) -> t1.compareDate(t2);
+		Collections.sort(tbm, compareByData);
 		Reducer.reduce(tbm);
 		for (int i = 0; i < tbm.size(); i++) {
 			LOGGER.log(Level.INFO, tbm.get(i).toString());
