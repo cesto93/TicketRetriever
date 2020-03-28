@@ -4,8 +4,7 @@ jdk:
 addons:
   sonarcloud:
     organization: "cesto93"
-    token: 
-      secure: $SONAR_TOKEN
+    token: $SONAR_TOKEN
 script:
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=cesto93_TicketRetriever
 #  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar 
