@@ -1,20 +1,28 @@
 package model;
 
+import java.time.YearMonth;
+
 public class TicketByMonth {
-	private int month;
-	private int year;
+	private YearMonth date;
 	private int numTickets;
 	
 	@Override
 	public String toString() {
-		return "TicketByMonth [month=" + month + ", year=" + year + ", numTickets=" + 
+		return "TicketByMonth [date=" + date + ", numTickets=" + 
 				numTickets + "]";
 	}
 	
-	public TicketByMonth(int month, int year, int numTickets) {
-		this.setMonth(month);
-		this.setYear(year);
+	public TicketByMonth(YearMonth date, int numTickets) {
+		this.date = date;
 		this.numTickets =  numTickets;
+	}
+	
+	public YearMonth getDate() {
+		return date;
+	}
+
+	public void setDate(YearMonth date) {
+		this.date = date;
 	}
 
 	public int getNumTickets() {
@@ -24,27 +32,11 @@ public class TicketByMonth {
 		this.numTickets = numTickets;
 	}
 
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public int getMonth() {
-		return month;
-	}
-
-	public void setMonth(int month) {
-		this.month = month;
-	}
-
 	public int compareDate(TicketByMonth tbm) {
-		return (this.getYear() - tbm.getYear()) * 12 + (this.getMonth() - tbm.getMonth());
+		return this.date.compareTo(tbm.date);
 	}
 	
 	public static boolean sameDate(TicketByMonth a, TicketByMonth b) {
-		return (a.getMonth() == b.getMonth()) && (a.getYear() == b.getYear());
+		return a.date.compareTo(b.date) == 0;
 	}
 }

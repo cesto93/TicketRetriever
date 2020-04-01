@@ -24,9 +24,9 @@ public class CSVExporter {
 		FileWriter fw = new FileWriter(file);
 		CSVPrinter printer = new CSVPrinter(fw, CSVFormat.DEFAULT);	
 		) {
-		    printer.printRecord("mese","anno", "numeroTicket");
+		    printer.printRecord("data", "numeroTicket");
 		    for (int i = 0; i < tbm.length; i++) {
-		    	printer.printRecord(tbm[i].getMonth(), tbm[i].getYear(), tbm[i].getNumTickets());
+		    	printer.printRecord(tbm[i].getDate(), tbm[i].getNumTickets());
 		    }
 		 } catch (IOException e) {
 		     LOGGER.log(Level.SEVERE, e.getMessage(), e);

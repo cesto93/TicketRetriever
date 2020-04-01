@@ -26,11 +26,11 @@ public class GitLogRetriever {
 			pb[i].directory(file);
 			
 			try {
-				Process p = pb[i].start();
+			Process p = pb[i].start();
 			
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-			// Read the output from the command
+			
 			String line = "";
 			while ((line = stdInput.readLine()) != null)
 				res.add(line);

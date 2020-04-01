@@ -1,6 +1,7 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +25,7 @@ public class Main {
 		for (int i = 0; i < dates.length; i++) {
 			String s = dates[i].substring(1, dates[i].length() - 1);
 			LocalDate ld = LocalDate.parse(s);
-			tbm.add(new TicketByMonth(ld.getMonthValue(), ld.getYear(), 1));
+			tbm.add(new TicketByMonth(YearMonth.from(ld), 1));
 		}
 		Comparator<TicketByMonth> compareByData = (TicketByMonth t1, TicketByMonth t2) -> t1.compareDate(t2);
 		Collections.sort(tbm, compareByData);
