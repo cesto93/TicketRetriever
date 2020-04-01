@@ -12,10 +12,13 @@ public class Reducer {
 	
 	public static void reduce(List<TicketByMonth> tbm) {
 		for (int i = 0; i < tbm.size(); i++) 
-			for (int j = i; j < tbm.size(); j++) 
+			for (int j = i + 1; j < tbm.size(); j++) 
 				if (TicketByMonth.sameDate(tbm.get(i), tbm.get(j))) {
-					tbm.get(i).setNumTickets(tbm.get(i).getNumTickets() + tbm.get(j).getNumTickets());
+					TicketByMonth temp = new TicketByMonth(tbm.get(i).getDate(),
+															tbm.get(i).getNumTickets() + tbm.get(j).getNumTickets());
+					tbm.set(i, temp);
 					tbm.remove(j);
+					j--;
 			}
 	}
 }

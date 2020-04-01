@@ -30,9 +30,7 @@ public class Main {
 		Comparator<TicketByMonth> compareByData = (TicketByMonth t1, TicketByMonth t2) -> t1.compareDate(t2);
 		Collections.sort(tbm, compareByData);
 		Reducer.reduce(tbm);
-		for (int i = 0; i < tbm.size(); i++) {
-			LOGGER.log(Level.INFO, tbm.get(i).toString());
-		}
+		LOGGER.log(Level.INFO, tbm.toString());
 		CSVExporter.printCSV(tbm.toArray(new TicketByMonth[0]), "./ticketByMonth.csv");
 	}
 	

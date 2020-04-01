@@ -37,6 +37,6 @@ public class TicketByMonth {
 	}
 	
 	public static boolean sameDate(TicketByMonth a, TicketByMonth b) {
-		return a.date.compareTo(b.date) == 0;
+		return a.date.equals(b.date);
 	}
 }
