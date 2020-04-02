@@ -38,6 +38,7 @@ public class GitLogRetriever {
 				printErrors(p);
 		} catch (IOException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			Thread.currentThread().interrupt();
 		}
 	}
 	
@@ -61,12 +62,13 @@ public class GitLogRetriever {
 				printErrors(p);
 			} catch (IOException | InterruptedException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
+				Thread.currentThread().interrupt();
 			}
 		}
 		return res.toArray(new String[0]);
 	}
 	
-	static private void printErrors(Process p) throws IOException  {
+	private static void printErrors(Process p) throws IOException  {
 		String line = "";
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 		while ((line = stdError.readLine()) != null)

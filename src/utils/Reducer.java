@@ -19,8 +19,9 @@ public class Reducer {
 															tbm.get(i).getNumTickets() + tbm.get(j).getNumTickets());
 					tbm.set(i, temp);
 					tbm.remove(j);
-				} else 
+				} else {
 					j++;
+				}
 		}
 	}
 }
