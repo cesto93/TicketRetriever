@@ -19,7 +19,9 @@ public class Main {
 	
 	public static void main(String[] args) {	
 		String[] keys = JIRATicketRetriever.readTicketKeys("STDCXX");
-		String[] dates = GitLogRetriever.getDates("/home/pier/Desktop/uni/isw2/progetto/stdcxx/", keys);
+		GitLogRetriever retriever = new GitLogRetriever("https://github.com/apache/stdcxx", 
+															"/home/pier/Desktop/uni/isw2/progetto/stdcxx/");
+		String[] dates = retriever.getDates(keys);
 		ArrayList<TicketByMonth> tbm = new ArrayList<>();
 		
 		for (int i = 0; i < dates.length; i++) {

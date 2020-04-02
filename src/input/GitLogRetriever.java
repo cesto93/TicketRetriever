@@ -10,37 +10,66 @@ import java.util.logging.Logger;
 
 public class GitLogRetriever {
 	private static final Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
+	private File repo;
+	private File parent;
 	
-	private GitLogRetriever() {
-	    throw new IllegalStateException("Utility class");
+	public GitLogRetriever(String repoURL, String repoPath) {
+		this.repo = new File(repoPath);
+		parent = repo.getParentFile();
+		if (!repoExist()) 
+			createRepo(repoURL);
 	}
 	
-	public static String[] getDates(String repoPath, String[] keys) {
+	private boolean repoExist() {
+		if (!repo.exists() || !repo.isDirectory())
+			return false;
+		
+		File git = new File(this.repo.getAbsolutePath() + ".git/");
+		return (git.exists());
+	}
+	
+	//no checkout
+	private void createRepo(String repoURL) {
+		ProcessBuilder pb = new ProcessBuilder( "git", "clone", repoURL, "-n");
+		pb.directory(parent);
+		try {
+			Process p = pb.start(); 
+			if (p.waitFor() != 0) 
+				printErrors(p);
+		} catch (IOException | InterruptedException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+		}
+	}
+	
+	public String[] getDates(String[] keys) {
 		ProcessBuilder[] pb = new ProcessBuilder[keys.length]; 
 		ArrayList<String> res = new ArrayList<>();
-		File file = new File(repoPath);
 		
 		for (int i = 0; i < keys.length; i++) {
 			pb[i] = new ProcessBuilder( "git", "log", "--date=short", "--pretty=format:\"%cd\"",
 					"--max-count=1", "--grep=" + keys[i]);
-			pb[i].directory(file);
+			pb[i].directory(repo);
 			
 			try {
 			Process p = pb[i].start();
-			
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-			
 			String line = "";
+			
 			while ((line = stdInput.readLine()) != null)
 				res.add(line);
-	
-			while ((line = stdError.readLine()) != null)
-					LOGGER.log(Level.WARNING, line);
-			} catch (IOException e) {
+			if (p.waitFor() != 0)
+				printErrors(p);
+			} catch (IOException | InterruptedException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 		return res.toArray(new String[0]);
+	}
+	
+	static private void printErrors(Process p) throws IOException  {
+		String line = "";
+		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		while ((line = stdError.readLine()) != null)
+			LOGGER.log(Level.WARNING, line);
 	}
 }

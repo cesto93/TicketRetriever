@@ -11,14 +11,16 @@ public class Reducer {
 	}
 	
 	public static void reduce(List<TicketByMonth> tbm) {
-		for (int i = 0; i < tbm.size(); i++) 
-			for (int j = i + 1; j < tbm.size(); j++) 
+		for (int i = 0; i < tbm.size(); i++) {
+			int j = i + 1;
+			while( j < tbm.size()) 
 				if (TicketByMonth.sameDate(tbm.get(i), tbm.get(j))) {
 					TicketByMonth temp = new TicketByMonth(tbm.get(i).getDate(),
 															tbm.get(i).getNumTickets() + tbm.get(j).getNumTickets());
 					tbm.set(i, temp);
 					tbm.remove(j);
-					j--;
-			}
+				} else 
+					j++;
+		}
 	}
 }
