@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import utils.MyLoggerFactory;
-import utils.MyLoggerFactory.LoggerType;
 
 public class GitLogRetriever {
-	private static final Logger LOGGER = MyLoggerFactory.getLogger(GitLogRetriever.class.getName(), LoggerType.DEBUG);
+	private static final Logger LOGGER = Logger.getLogger(GitLogRetriever.class.getName());
 	private File repo;
 	private File parent;
 	
