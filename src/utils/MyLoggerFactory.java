@@ -11,11 +11,9 @@ public class MyLoggerFactory {
 	
 	public static Logger getLogger(String name, LoggerType loggerType) {
 		Logger log = Logger.getLogger(name);
-		switch (loggerType) {
-		case DEBUG:
+		if (loggerType == LoggerType.DEBUG) {
 			log.setLevel(Level.ALL);
-			break;
-		default:
+		} else {
 			log.setLevel(Level.WARNING);
 		}
 		return log;
