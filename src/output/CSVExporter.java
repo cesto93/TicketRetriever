@@ -20,18 +20,17 @@ public class CSVExporter {
 	    throw new IllegalStateException("Utility class");
 	}
 	
-	public static void printCSV(TicketByMonth[] tbm, String file) {
-		
-	try (
-		FileWriter fw = new FileWriter(file);
-		CSVPrinter printer = new CSVPrinter(fw, CSVFormat.DEFAULT);	
-		) {
-		    printer.printRecord("data", "numeroTicket");
-		    for (int i = 0; i < tbm.length; i++) {
-		    	printer.printRecord(tbm[i].getDate(), tbm[i].getNumTickets());
-		    }
-		 } catch (IOException e) {
+	public static void printCSV(TicketByMonth[] tbms, String file) {
+		try (
+				FileWriter fw = new FileWriter(file);
+				CSVPrinter printer = new CSVPrinter(fw, CSVFormat.DEFAULT);	
+			) {
+		    	printer.printRecord("data", "numeroTicket");
+		    	for (TicketByMonth tbm : tbms) {
+		    	printer.printRecord(tbm.getDate(), tbm.getNumTickets());
+		    	}
+		} catch (IOException e) {
 		     LOGGER.log(Level.SEVERE, e.getMessage(), e);
-		 }
+		}
 	}
 }

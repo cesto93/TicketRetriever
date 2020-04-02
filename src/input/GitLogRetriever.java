@@ -38,7 +38,7 @@ public class GitLogRetriever {
 		pb.directory(parent);
 		try {
 			Process p = pb.start(); 
-			if (p.waitFor() != 0) 
+			if (p.waitFor() != 0 && LOGGER.isLoggable(Level.SEVERE) ) 
 				LOGGER.log(Level.SEVERE, readErrors(p));
 		} catch (IOException | InterruptedException e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -62,7 +62,7 @@ public class GitLogRetriever {
 			
 			while ((line = stdInput.readLine()) != null)
 				res.add(line);
-			if (p.waitFor() != 0)
+			if (p.waitFor() != 0 && LOGGER.isLoggable(Level.SEVERE))
 				LOGGER.log(Level.SEVERE, readErrors(p));
 			} catch (IOException | InterruptedException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -73,11 +73,11 @@ public class GitLogRetriever {
 	}
 	
 	private static String readErrors(Process p) throws IOException  {
-		String s = "";
+		StringBuilder bld = new StringBuilder();
 		String line = "";
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 		while ((line = stdError.readLine()) != null)
-			s = s + line;
-		return s;
+			bld.append(line);
+		return bld.toString();
 	}
 }
