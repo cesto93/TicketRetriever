@@ -9,10 +9,12 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import model.TicketByMonth;
+import utils.MyLoggerFactory;
+import utils.MyLoggerFactory.LoggerType;
 
 public class CSVExporter {
 	
-	private static final Logger LOGGER = Logger.getLogger(CSVExporter.class.getName());
+	private static final Logger LOGGER = MyLoggerFactory.getLogger(CSVExporter.class.getName(), LoggerType.DEBUG);
 	
 	private CSVExporter() {
 	    throw new IllegalStateException("Utility class");

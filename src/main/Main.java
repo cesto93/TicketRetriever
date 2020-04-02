@@ -12,10 +12,12 @@ import input.GitLogRetriever;
 import input.JIRATicketRetriever;
 import model.TicketByMonth;
 import output.CSVExporter;
+import utils.MyLoggerFactory;
 import utils.Reducer;
+import utils.MyLoggerFactory.LoggerType;
 
 public class Main {
-	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+	private static final Logger LOGGER = MyLoggerFactory.getLogger(Main.class.getName(), LoggerType.DEBUG);
 	
 	public static void main(String[] args) {	
 		String[] keys = JIRATicketRetriever.readTicketKeys("STDCXX");
