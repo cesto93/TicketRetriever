@@ -21,17 +21,17 @@ public class Main {
 		String[] keys = JIRATicketRetriever.readTicketKeys("STDCXX");
 		GitLogRetriever retriever = new GitLogRetriever("https://github.com/apache/stdcxx", 
 															"/home/pier/Desktop/uni/isw2/progetto/stdcxx/");
-		String[] dates = retriever.getDates(keys);
+		LocalDate[] dates = retriever.getDates(keys);
 		ArrayList<TicketByMonth> tbm = new ArrayList<>();
 		
-		for (int i = 0; i < dates.length; i++) {
-			String s = dates[i].substring(1, dates[i].length() - 1);
-			LocalDate ld = LocalDate.parse(s);
-			tbm.add(new TicketByMonth(YearMonth.from(ld), 1));
+		for (LocalDate date : dates) {
+			tbm.add(new TicketByMonth(YearMonth.from(date), 1));
 		}
+		
 		Comparator<TicketByMonth> compareByData = (TicketByMonth t1, TicketByMonth t2) -> t1.compareDate(t2);
 		Collections.sort(tbm, compareByData);
 		Reducer.reduce(tbm);
+		Reducer.addEmptyMonths(tbm);
 		LOGGER.log(Level.INFO, tbm.toString());
 		CSVExporter.printCSV(tbm.toArray(new TicketByMonth[0]), "./ticketByMonth.csv");
 	}

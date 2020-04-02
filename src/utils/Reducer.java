@@ -1,5 +1,6 @@
 package utils;
 
+import java.time.YearMonth;
 import java.util.List;
 
 import model.TicketByMonth;
@@ -22,6 +23,20 @@ public class Reducer {
 				} else {
 					j++;
 				}
+		}
+	}
+	
+	public static void addEmptyMonths(List <TicketByMonth> tbm) {
+		YearMonth start = tbm.get(0).getDate().plusMonths(1);
+		YearMonth end = tbm.get(tbm.size() - 1).getDate();
+		int i = 1;
+		while (start.isBefore(end)) {
+			if (!tbm.get(i).getDate().equals(start)) {
+				TicketByMonth temp = new TicketByMonth(start, 0);
+				tbm.add(i, temp);
+			}
+			i++;
+			start = start.plusMonths(1);
 		}
 	}
 }

@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import model.CommitMessageByData;
 import utils.JSONReader;
@@ -15,9 +16,11 @@ import utils.JSONReader;
 public class GithubLogRetriever {
 	private static final Logger LOGGER = Logger.getLogger(GithubLogRetriever.class.getName());
 	
-	private GithubLogRetriever() {}
+	private GithubLogRetriever() {
+		throw new IllegalStateException("Utility class");
+	}
 	
-	public static String[] getDates(String repo, String[] keys) {
+	public static LocalDateTime[] getDates(String repo, String[] keys) {
 		ArrayList<CommitMessageByData> commits = getDates(repo);
 		ArrayList<LocalDateTime> dates = new ArrayList<>();
 		for (int i = 0 ; i < keys.length; i++) {
@@ -28,22 +31,22 @@ public class GithubLogRetriever {
 			}
 		}
 		
-		return dates.toArray(new String[0]);
+		return dates.toArray(new LocalDateTime[0]);
 	}
 	
 	private static ArrayList<CommitMessageByData> getDates(String repo) {
 		ArrayList<CommitMessageByData> res = new ArrayList<>();
 		String url = "https://api.github.com/repos/" + repo + "commits";
-		JSONArray json;
+		JSONArray jsons;
 		int page = 1;
 		try {
-			while ( (json = JSONReader.readJsonArrayFromUrl(url + "?pages=" + page)) != null) {
-			
-			for (int i = 0; i < json.length(); i++) {
-				String msg = json.getJSONObject(i).getJSONObject("commit").get("message").toString();
-				String data = json.getJSONObject(i).getJSONObject("commit").get("data").toString();
-				res.add(new CommitMessageByData(msg, LocalDateTime.parse(data, DateTimeFormatter.ISO_INSTANT)));
-			} 
+			while ( (jsons = JSONReader.readJsonArrayFromUrl(url + "?pages=" + page)) != null) {
+				for (int i = 0; i < jsons.length(); i++) {
+					JSONObject commit = jsons.getJSONObject(i).getJSONObject("commit");
+					String msg = commit.get("message").toString();
+					String data = commit.get("data").toString();
+					res.add(new CommitMessageByData(msg, LocalDateTime.parse(data, DateTimeFormatter.ISO_INSTANT)));
+				} 
 			page++;
 		}
 			

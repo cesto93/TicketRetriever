@@ -25,7 +25,7 @@ public class CSVExporter {
 			) {
 		    	printer.printRecord("data", "numeroTicket");
 		    	for (TicketByMonth tbm : tbms) {
-		    	printer.printRecord(tbm.getDate(), tbm.getNumTickets());
+		    		printer.printRecord(tbm.getDate(), tbm.getNumTickets());
 		    	}
 		} catch (IOException e) {
 		     LOGGER.log(Level.SEVERE, e.getMessage(), e);

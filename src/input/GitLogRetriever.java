@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,30 +45,30 @@ public class GitLogRetriever {
 		}
 	}
 	
-	public String[] getDates(String[] keys) {
-		ProcessBuilder[] pb = new ProcessBuilder[keys.length]; 
-		ArrayList<String> res = new ArrayList<>();
-		
-		for (int i = 0; i < keys.length; i++) {
-			pb[i] = new ProcessBuilder( "git", "log", "--date=short", "--pretty=format:\"%cd\"",
-					"--max-count=1", "--grep=" + keys[i]);
-			pb[i].directory(repo);
+	public LocalDate[] getDates(String[] keys) {
+		ArrayList<LocalDate> res = new ArrayList<>();
+		for (String key : keys) {
+			ProcessBuilder pb = new ProcessBuilder( "git", "log", "--date=short", "--pretty=format:\"%cd\"",
+									"--max-count=1", "--grep=" + key);
+			pb.directory(repo);
 			
 			try {
-			Process p = pb[i].start();
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			String line = "";
+				Process p = pb.start();
+				BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
 			
-			while ((line = stdInput.readLine()) != null)
-				res.add(line);
-			if (p.waitFor() != 0 && LOGGER.isLoggable(Level.SEVERE))
-				LOGGER.log(Level.SEVERE, readErrors(p));
+				while ((line = stdInput.readLine()) != null) {
+					line = line.substring(1, line.length() - 1);
+					res.add(LocalDate.parse(line));
+				}
+				if (p.waitFor() != 0 && LOGGER.isLoggable(Level.SEVERE))
+					LOGGER.log(Level.SEVERE, readErrors(p));
 			} catch (IOException | InterruptedException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 				Thread.currentThread().interrupt();
 			}
 		}
-		return res.toArray(new String[0]);
+		return res.toArray(new LocalDate[0]);
 	}
 	
 	private static String readErrors(Process p) throws IOException  {
