@@ -14,6 +14,7 @@ import git.GitRepoHandler;
 import jira.JIRATicketRetriever;
 import model.TicketByMonth;
 import output.CSVExporter;
+import utils.GetProperty;
 import utils.Reducer;
 
 public class TicketControlChart {
@@ -22,17 +23,18 @@ public class TicketControlChart {
 	
 	public static void main(String[] args) {	
 		final String resfile = "./ticketByMonth.csv";
-		final String repoUrl = "https://github.com/apache/stdcxx";
-		final String repoPath = "/home/pier/Desktop/uni/isw2/progetto";
-		final String repoDir = "stdcxx";
-		final String projName = "STDCXX";
+		final String repoUrl = GetProperty.getProperty("urlProject");
+		final String repoPath = GetProperty.getProperty("repoPath");
+		final String repoDir = GetProperty.getProperty("repoDir");
+		final String projName = GetProperty.getProperty("projectName");
+		
 		String[] keys = JIRATicketRetriever.readTicketKeys(projName);
 		createControlChart(keys, repoUrl, new File(repoPath, repoDir), resfile);
 	}
 	
 	public static void createControlChart(String[] keys, String repoUrl, File repoPath, String resfile) {
 		GitLogRetriever retriever = new GitLogRetriever(new GitRepoHandler(repoUrl, repoPath));
-		LocalDate dates[] = new LocalDate[keys.length];
+		LocalDate[] dates = new LocalDate[keys.length];
 		for (int i = 0; i < keys.length; i++) {
 			dates[i] = retriever.getDate(keys[i]);
 		}
