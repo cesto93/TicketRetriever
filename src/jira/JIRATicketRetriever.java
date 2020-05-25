@@ -1,4 +1,4 @@
-package input;
+package jira;
 
 import java.util.ArrayList;
 import java.util.logging.Level;

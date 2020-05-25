@@ -1,4 +1,4 @@
-package input;
+package git;
 
 import java.io.BufferedReader;
 import java.io.File;
