@@ -6,8 +6,5 @@
 ###Maven
 /target/
 
-### csv result
-ticketByMonth.csv
-
 ### ods file
 ticketByMonth.ods
